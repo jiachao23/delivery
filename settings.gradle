@@ -1,0 +1,21 @@
+pluginManagement {
+	repositories {
+		maven { url "http://maven.aliyun.com/repository/gradle-plugin" }
+		mavenCentral()
+		gradlePluginPortal()
+		maven {
+			url "https://repo.spring.io/plugins-release"
+		}
+	}
+}
+
+rootProject.name = 'delivery'
+include 'delivery-admin'
+include 'delivery-system'
+include 'delivery-common'
+include 'delivery-framework'
+include 'delivery-quartz'
+include 'delivery-generator'
+include 'delivery-asserts'
+include 'delivery-goods'
+

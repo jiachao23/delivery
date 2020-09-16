@@ -1,0 +1,12 @@
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("com.alibaba:druid-spring-boot-starter")
+	compile("com.github.penggle:kaptcha")
+	compile("org.apache.shiro:shiro-spring")
+	compile("com.github.theborakompanioni:thymeleaf-extras-shiro")
+	compile("eu.bitwalker:UserAgentUtils")
+	compile("com.github.oshi:oshi-core")
+	compile("net.java.dev.jna:jna")
+	compile("net.java.dev.jna:jna-platform")
+	compile(project(":delivery-system"))
+}

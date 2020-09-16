@@ -1,0 +1,4 @@
+dependencies {
+	compile("org.quartz-scheduler:quartz")
+	compile(project(":delivery-common"))
+}

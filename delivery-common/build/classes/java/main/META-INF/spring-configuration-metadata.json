@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "delivery",
+      "type": "com.delivery.common.config.Global",
+      "sourceType": "com.delivery.common.config.Global"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

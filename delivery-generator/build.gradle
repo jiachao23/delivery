@@ -1,0 +1,4 @@
+dependencies {
+	compile("org.apache.velocity:velocity")
+	compile(project(":delivery-common"))
+}

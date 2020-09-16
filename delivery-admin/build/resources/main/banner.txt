@@ -1,0 +1,7 @@
+${AnsiColor.GREEN}   ______              _____     _____
+${AnsiColor.GREEN}  |  ____|     /\     |_   _|   / ____|
+${AnsiColor.GREEN}  | |__       /  \      | |    | (___
+${AnsiColor.GREEN}  |  __|     / /\ \     | |     \___ \
+${AnsiColor.GREEN}  | |       / ____ \   _| |_    ____) |
+${AnsiColor.GREEN}  |_|      /_/    \_\ |_____|  |_____/
+${AnsiColor.BLUE}${AnsiColor.BLUE}delivery-version:${AnsiColor.RED} ${delivery.version}    ${AnsiColor.BLUE} Running  SpringBoot:${AnsiColor.RED} ${spring-boot.version} ${AnsiColor.BRIGHT_BLACK}

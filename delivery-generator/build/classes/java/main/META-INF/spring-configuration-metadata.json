@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "gen",
+      "type": "com.delivery.generator.config.GenConfig",
+      "sourceType": "com.delivery.generator.config.GenConfig"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

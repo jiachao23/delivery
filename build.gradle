@@ -1,0 +1,185 @@
+buildscript {
+	repositories {
+		maven {
+			url 'http://maven.aliyun.com/repository/gradle-plugin'
+		}
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.2.8.RELEASE' apply false
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
+}
+
+
+ext {
+	mainProject = project(":delivery-admin")
+	//================= framework =================
+	set('shiroVersion', "1.5.3")
+	set('thymeleafShiroVersion', "2.0.0")
+	set('mybatisBootVersion', "1.3.2")
+	set('druidVersion', "1.1.14")
+	set('bitwalker', "1.19")
+	set('kaptchaVersion', "2.3.2")
+	set('swaggerVersion', "2.9.2")
+	set('swaggerModuleVersion', "1.5.21")
+	set('pagehelperBootVersion', "1.2.5")
+	set('fastjsonVersion', "1.2.70")
+	set('oshiVersion', "3.9.1")
+	set('commonsIoVersion', "2.5")
+	set('commonsFileVersion', "1.3.3")
+	set('poiVersion', "3.17")
+	set('velocityVersion', "1.7")
+}
+
+configure(allprojects) { abjects ->
+
+	apply plugin: "io.spring.dependency-management"
+
+	group 'com.delivery'
+	version '1.0.0'
+
+	dependencyManagement {
+		imports {
+			mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+		}
+
+		dependencies {
+			dependency "com.github.oshi:oshi-core:${oshiVersion}"
+			dependencySet("com.alibaba:${druidVersion}") {
+				entry 'druid'
+				entry 'druid-spring-boot-starter'
+			}
+			dependency "com.github.penggle:kaptcha:${kaptchaVersion}"
+			dependencySet("org.apache.shiro:${shiroVersion}") {
+				entry 'shiro-core'
+				entry 'shiro-spring'
+				entry 'shiro-ehcache'
+			}
+			dependency "com.github.theborakompanioni:thymeleaf-extras-shiro:${thymeleafShiroVersion}"
+			dependency "eu.bitwalker:UserAgentUtils:${bitwalker}"
+			dependency "com.github.pagehelper:pagehelper-spring-boot-starter:${pagehelperBootVersion}"
+			dependencySet("io.springfox:${swaggerVersion}") {
+				entry 'springfox-swagger2'
+				entry 'springfox-swagger-ui'
+			}
+			dependencySet("io.swagger:${swaggerModuleVersion}") {
+				entry 'swagger-annotations'
+				entry 'swagger-models'
+			}
+			dependency "commons-io:commons-io:${commonsIoVersion}"
+			dependency "commons-fileupload:commons-fileupload:${commonsFileVersion}"
+			dependency "org.apache.velocity:velocity:${velocityVersion}"
+			dependency "org.apache.poi:poi-ooxml:${poiVersion}"
+			dependency "com.alibaba:fastjson:${fastjsonVersion}"
+		}
+	}
+
+	repositories {
+		mavenLocal()
+		maven { url 'https://maven.aliyun.com/repository/central' }
+		maven { url 'https://repo.spring.io/libs-milestone' }
+		maven { url 'https://repo.spring.io/snapshot/' }
+		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+		mavenCentral()
+	}
+
+	configurations.all {
+		resolutionStrategy {
+			cacheChangingModulesFor 0, "seconds"
+			cacheDynamicVersionsFor 0, "seconds"
+		}
+	}
+}
+
+configure(mainProject) {
+	apply plugin: 'org.springframework.boot'
+}
+
+configure(subprojects) { project ->
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'java'
+
+	configurations {
+		developmentOnly
+		runtimeClasspath {
+			extendsFrom developmentOnly
+		}
+	}
+
+	dependencies {
+		compile "org.springframework.boot:spring-boot-starter-aop"
+		compile "org.springframework.retry:spring-retry"
+		testCompile "org.springframework.boot:spring-boot-starter-test"
+		developmentOnly("org.springframework.boot:spring-boot-devtools")
+		annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	}
+
+	tasks.withType(JavaCompile) {
+		options.encoding = "UTF-8"
+		options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+	}
+
+	jar {
+		manifest.attributes["Implementation-Title"] = project.name
+		manifest.attributes["Implementation-Version"] = project.version
+		manifest.attributes["Automatic-Module-Name"] = project.name.replace('-', '.')
+		// for Jigsaw
+		manifest.attributes["Created-By"] =
+				"${System.getProperty("java.version")} (${System.getProperty("java.specification.vendor")})"
+
+		from("${rootDir}/src/docs/dist") {
+			include "license.txt"
+			include "notice.txt"
+			into "META-INF"
+			expand(copyright: new Date().format("yyyy"), version: project.version)
+		}
+	}
+
+	normalization {
+		runtimeClasspath {
+			ignore "META-INF/MANIFEST.MF"
+		}
+	}
+
+	javadoc {
+		description = "Generates project-level javadoc for use in -javadoc jar"
+
+		options.encoding = "UTF-8"
+		options.charSet = "UTF-8"
+		options.memberLevel = JavadocMemberLevel.PROTECTED
+		options.author = true
+		options.header = project.description
+		options.use = true
+		options.links = [
+				"https://docs.oracle.com/javase/8/docs/api/",
+				"https://docs.oracle.com/javaee/7/api/",
+				"https://docs.spring.io/spring-framework/docs/5.2.7.RELEASE/javadoc-api/",
+				"https://docs.spring.io/spring-security/site/docs/5.2.5.RELEASE/api/",
+				"https://docs.spring.io/spring-data/jpa/docs/2.2.8.RELEASE/api/",
+				"https://docs.spring.io/spring-security/site/docs/5.3.2.RELEASE/api/",
+		] as String[]
+		options.addStringOption("Xdoclint:none", "-quiet")
+
+		// Suppress warnings due to cross-module @see and @link references.
+		// Note that global 'api' task does display all warnings.
+		logging.captureStandardError LogLevel.INFO
+		logging.captureStandardOutput LogLevel.INFO  // suppress "## warnings" message
+	}
+
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+		archiveClassifier.set("sources")
+		from sourceSets.main.allSource
+		// Don't include or exclude anything explicitly by default. See SPR-12085.
+	}
+
+	task javadocJar(type: Jar) {
+		archiveClassifier.set("javadoc")
+		from javadoc
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+}

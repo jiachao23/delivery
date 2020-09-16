@@ -1,0 +1,16 @@
+dependencies {
+	compile("org.springframework:spring-context-support")
+	compile("org.springframework:spring-web")
+	compile("org.apache.shiro:shiro-core")
+	compile("com.github.pagehelper:pagehelper-spring-boot-starter")
+	compile("org.apache.shiro:shiro-ehcache")
+	compile("javax.validation:validation-api")
+	compile("org.apache.commons:commons-lang3")
+	compile("com.fasterxml.jackson.core:jackson-databind")
+	compile("com.alibaba:fastjson")
+	compile("commons-io:commons-io")
+	compile("javax.servlet:javax.servlet-api")
+	compile("commons-fileupload:commons-fileupload")
+	compile("org.apache.poi:poi-ooxml")
+	compile("org.yaml:snakeyaml")
+}
