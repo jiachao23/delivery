@@ -33,6 +33,11 @@ public class DeliveryCardServiceImpl implements IDeliveryCardService {
 		return deliveryCardMapper.selectDeliveryCardById(id);
 	}
 
+	@Override
+	public DeliveryCard selectDeliveryCardByCardNo(String cardNo) {
+		return deliveryCardMapper.selectDeliveryCardByCardNo(cardNo);
+	}
+
 	/**
 	 * 查询卡劵列表
 	 *

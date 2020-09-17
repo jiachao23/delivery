@@ -33,7 +33,6 @@ public class ResourcesConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("forward:" + indexUrl);
-		registry.addViewController("/front").setViewName("/front/index");
 	}
 
 	@Override

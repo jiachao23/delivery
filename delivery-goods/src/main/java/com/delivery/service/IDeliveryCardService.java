@@ -20,6 +20,14 @@ public interface IDeliveryCardService {
 	public DeliveryCard selectDeliveryCardById(Long id);
 
 	/**
+	 * 查询卡劵
+	 *
+	 * @param cardNo 卡劵编号
+	 * @return 卡劵
+	 */
+	public DeliveryCard selectDeliveryCardByCardNo(String cardNo);
+
+	/**
 	 * 查询卡劵列表
 	 *
 	 * @param deliveryCard 卡劵

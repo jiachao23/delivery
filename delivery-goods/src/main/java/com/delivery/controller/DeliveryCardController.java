@@ -14,6 +14,8 @@ import com.delivery.common.utils.uuid.IdUtils;
 import com.delivery.domain.DeliveryCard;
 import com.delivery.dto.CardDto;
 import com.delivery.service.IDeliveryCardService;
+import com.delivery.system.domain.SysConfig;
+import com.delivery.system.utils.DictUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +95,7 @@ public class DeliveryCardController extends BaseController {
 			String cardNo = IdUtils.generateNumber(12);
 			String password = IdUtils.generateNumber(6);
 			deliveryCard.setCardNo(cardNo);
+			deliveryCard.setCardStatus(DictUtils.getDictValue("card_status","待处理"));
 			deliveryCard.setCardPassword(password);
 			deliveryCard.setCardShop(cardDto.getName());
 			deliveryCardService.insertDeliveryCard(deliveryCard);
@@ -133,4 +136,5 @@ public class DeliveryCardController extends BaseController {
 	public AjaxResult remove(String ids) {
 		return toAjax(deliveryCardService.deleteDeliveryCardByIds(ids));
 	}
+
 }

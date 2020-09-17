@@ -20,6 +20,13 @@ public interface DeliveryCardMapper {
 	public DeliveryCard selectDeliveryCardById(Long id);
 
 	/**
+	 * 根据卡编号查询
+	 * @param cardNo  cardNo
+	 * @return /
+	 */
+	public DeliveryCard selectDeliveryCardByCardNo(String cardNo);
+
+	/**
 	 * 查询卡劵列表
 	 *
 	 * @param deliveryCard 卡劵

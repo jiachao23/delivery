@@ -70,6 +70,12 @@
 		where id = #{id}
 	</select>
 
+	<select id="selectDeliveryCardByCardNo" parameterType="String"
+			resultMap="DeliveryCardResult">
+		<include refid="selectDeliveryCardVo"/>
+		where card_no = #{cardNo}
+	</select>
+
 	<insert id="insertDeliveryCard" parameterType="DeliveryCard" useGeneratedKeys="true"
 			keyProperty="id">
 		insert into delivery_card
