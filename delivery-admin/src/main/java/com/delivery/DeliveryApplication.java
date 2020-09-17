@@ -10,10 +10,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @author jiac
  */
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, FlywayAutoConfiguration.class })
-public class DeliveryApplication{
+public class DeliveryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DeliveryApplication.class, args);
 	}
-
 
 }

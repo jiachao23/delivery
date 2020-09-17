@@ -9,6 +9,7 @@ dependencies {
 	runtimeOnly("org.springframework.boot:spring-boot-properties-migrator")
 	compile(project(":delivery-framework"))
 	compile(project(":delivery-generator"))
+	compile(project(":delivery-goods"))
 }
 
 springBoot {

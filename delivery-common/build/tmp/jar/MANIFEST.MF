@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: delivery-common
-Automatic-Module-Name: delivery.common
-Implementation-Version: 1.0.0
-Created-By: 1.8.0_181 (Oracle Corporation)
-

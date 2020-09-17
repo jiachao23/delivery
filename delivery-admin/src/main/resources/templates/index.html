@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="webkit" name="renderer">
-    <title>资产管理系统</title>
+    <title>后台管理系统</title>
     <!-- 避免IE使用兼容模式 -->
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <link rel="shortcut icon" th:href="@{favicon.ico}"/>
@@ -26,7 +26,7 @@
         </div>
         <a th:href="@{/index}">
             <li class="logo hidden-xs">
-                <span class="logo-lg">资产盘点系统</span>
+                <span class="logo-lg">后台管理系统</span>
             </li>
         </a>
         <div class="sidebar-collapse">
@@ -266,83 +266,6 @@
                     </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-right welcome-message">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown"
-                           href="#">
-                            <i class="fa fa-bell"></i> <span class="label label-danger"
-                                                             th:text="${notConfirm}"></span>
-                            待办事项
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">
-                            <li>
-                                <a class="menuItem noactive top"
-                                   th:href="@{/asserts/fixed}">
-                                    <div>
-                                        <i class="fa fa-bell">
-                                        </i>
-                                        <span>待处理固定资产：</span>
-                                        <span th:text="${fixedNotConfirm}+'条'"></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a class="menuItem noactive top"
-                                   th:href="@{/asserts/consumables}">
-                                    <div>
-                                        <i class="fa fa-bell"></i>
-                                        <span>待处理低值易耗资品：</span>
-                                        <span th:text="${consumablesNotConfirm}+'条'"></span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <strong>请在资产管理中及时处理</strong>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown user-menu">
-                        <a class="dropdown-toggle" data-hover="dropdown"
-                           href="javascript:void(0)">
-                            <span class="hidden-xs">资产盘点</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="mt5">
-                                <a class="menuItem noactive" onclick="importJson()">
-                                    <i class="fa fa-import"></i> 导入已盘点数据</a>
-                            </li>
-
-                            <li class="mt5">
-                                <a class="menuItem noactive" onclick="exportJson()">
-                                    <i class="fa fa-export"></i> 导出待盘点数据</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown user-menu">
-                        <a class="dropdown-toggle" data-hover="dropdown"
-                           href="javascript:void(0)">
-                            <span class="hidden-xs">资料下载</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="mt5">
-                                <a class="menuItem noactive"
-                                   onclick="downloadFile('1.doc')">
-                                    <i class="fa fa-download"></i> 下载操作文档</a>
-                            </li>
-
-                            <li class="mt5">
-                                <a class="menuItem noactive"
-                                   onclick="downloadFile('ZMPrintService-1.18.zip')">
-                                    <i class="fa fa-download"></i> 下载打印驱动</a>
-                            </li>
-                        </ul>
-                    </li>
-
                     <li><a href="javascript:void(0)" id="fullScreen" title="全屏显示"><i
                             class="fa fa-arrows-alt"></i> 全屏显示</a></li>
                     <li class="dropdown user-menu">
@@ -503,19 +426,6 @@
                         }
                     }
                 });
-            }
-        });
-    }
-
-    function exportJson() {
-        var url = ctx + 'asserts/inventory/export';
-        $.get(url, function (result) {
-            if (result.code == web_status.SUCCESS) {
-                window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
-            } else if (result.code == web_status.WARNING) {
-                $.modal.alertWarning(result.msg)
-            } else {
-                $.modal.alertError(result.msg);
             }
         });
     }

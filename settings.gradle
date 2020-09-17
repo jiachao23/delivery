@@ -16,6 +16,4 @@ include 'delivery-common'
 include 'delivery-framework'
 include 'delivery-quartz'
 include 'delivery-generator'
-include 'delivery-asserts'
 include 'delivery-goods'
-

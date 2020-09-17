@@ -9,6 +9,8 @@ dependencies {
 	compile("com.fasterxml.jackson.core:jackson-databind")
 	compile("com.alibaba:fastjson")
 	compile("commons-io:commons-io")
+	compile("com.google.zxing:core")
+	compile("com.google.zxing:javase")
 	compile("javax.servlet:javax.servlet-api")
 	compile("commons-fileupload:commons-fileupload")
 	compile("org.apache.poi:poi-ooxml")

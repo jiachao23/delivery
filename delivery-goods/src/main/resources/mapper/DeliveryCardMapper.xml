@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.delivery.mapper.DeliveryCardMapper">
+
+	<resultMap type="DeliveryCard" id="DeliveryCardResult">
+		<result property="id" column="id"/>
+		<result property="cardNo" column="card_no"/>
+		<result property="cardPassword" column="card_password"/>
+		<result property="cardShop" column="card_shop"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="cardStatus" column="card_status"/>
+		<result property="userName" column="user_name"/>
+		<result property="phone" column="phone"/>
+		<result property="address" column="address"/>
+		<result property="remark" column="remark"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createBy" column="create_by"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+
+	<sql id="selectDeliveryCardVo">
+        select id, card_no, card_password, card_shop,start_time, end_time, card_status, user_name, phone, address,remark, del_flag, create_by, create_time, update_by, update_time from delivery_card
+    </sql>
+
+	<select id="selectDeliveryCardList" parameterType="DeliveryCard"
+			resultMap="DeliveryCardResult">
+		<include refid="selectDeliveryCardVo"/>
+		<where>
+			<if test="cardNo != null  and cardNo != ''">and card_no =
+				#{cardNo}
+			</if>
+			<if test="cardPassword != null  and cardPassword != ''">and card_password =
+				#{cardPassword}
+			</if>
+			<if test="cardShop != null  and cardShop != ''">and card_shop =
+				#{cardShop}
+			</if>
+			<if test="startTime != null ">and start_time =
+				#{startTime}
+			</if>
+			<if test="endTime != null ">and end_time =
+				#{endTime}
+			</if>
+			<if test="cardStatus != null  and cardStatus != ''">and card_status =
+				#{cardStatus}
+			</if>
+			<if test="userName != null  and userName != ''">and user_name
+				like concat('%', #{userName}, '%')
+			</if>
+			<if test="phone != null  and phone != ''">and phone =
+				#{phone}
+			</if>
+			<if test="address != null  and address != ''">and address =
+				#{address}
+			</if>
+			<if test="remark != null  and remark != ''">and remark =
+				#{remark}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectDeliveryCardById" parameterType="Long"
+			resultMap="DeliveryCardResult">
+		<include refid="selectDeliveryCardVo"/>
+		where id = #{id}
+	</select>
+
+	<insert id="insertDeliveryCard" parameterType="DeliveryCard" useGeneratedKeys="true"
+			keyProperty="id">
+		insert into delivery_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cardNo != null and cardNo != ''">card_no
+				,
+			</if>
+			<if test="cardPassword != null and cardPassword != ''">card_password
+				,
+			</if>
+			<if test="cardShop != null and cardShop != ''">card_shop
+				,
+			</if>
+			<if test="startTime != null">start_time
+				,
+			</if>
+			<if test="endTime != null">end_time
+				,
+			</if>
+			<if test="cardStatus != null">card_status
+				,
+			</if>
+			<if test="userName != null">user_name
+				,
+			</if>
+			<if test="phone != null">phone
+				,
+			</if>
+			<if test="address != null">address
+				,
+			</if>
+			<if test="remark != null">remark
+				,
+			</if>
+			<if test="delFlag != null">del_flag
+				,
+			</if>
+			<if test="createBy != null">create_by
+				,
+			</if>
+			<if test="createTime != null">create_time
+				,
+			</if>
+			<if test="updateBy != null">update_by
+				,
+			</if>
+			<if test="updateTime != null">update_time
+				,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cardNo != null and cardNo != ''">
+				#{cardNo},
+			</if>
+			<if test="cardPassword != null and cardPassword != ''">
+				#{cardPassword},
+			</if>
+			<if test="cardShop != null and cardShop != ''">
+				#{cardShop},
+			</if>
+			<if test="startTime != null">
+				#{startTime},
+			</if>
+			<if test="endTime != null">
+				#{endTime},
+			</if>
+			<if test="cardStatus != null">
+				#{cardStatus},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag},
+			</if>
+			<if test="createBy != null">
+				#{createBy},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateDeliveryCard" parameterType="DeliveryCard">
+		update delivery_card
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="cardNo != null and cardNo != ''">card_no
+				= #{cardNo},
+			</if>
+			<if test="cardPassword != null and cardPassword != ''">card_password
+				= #{cardPassword},
+			</if>
+			<if test="cardShop != null and cardShop != ''">card_shop
+				= #{cardShop},
+			</if>
+			<if test="startTime != null">start_time
+				= #{startTime},
+			</if>
+			<if test="endTime != null">end_time
+				= #{endTime},
+			</if>
+			<if test="cardStatus != null">card_status
+				= #{cardStatus},
+			</if>
+			<if test="userName != null">user_name
+				= #{userName},
+			</if>
+			<if test="phone != null">phone
+				= #{phone},
+			</if>
+			<if test="address != null">address
+				= #{address},
+			</if>
+			<if test="remark != null">remark
+				= #{remark},
+			</if>
+			<if test="delFlag != null">del_flag
+				= #{delFlag},
+			</if>
+			<if test="createBy != null">create_by
+				= #{createBy},
+			</if>
+			<if test="createTime != null">create_time
+				= #{createTime},
+			</if>
+			<if test="updateBy != null">update_by
+				= #{updateBy},
+			</if>
+			<if test="updateTime != null">update_time
+				= #{updateTime},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteDeliveryCardById" parameterType="Long">
+        delete from delivery_card where id = #{id}
+    </delete>
+
+	<delete id="deleteDeliveryCardByIds" parameterType="String">
+		delete from delivery_card where id in
+		<foreach item="id" collection="array" open="(" separator=","
+				 close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

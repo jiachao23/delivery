@@ -15,11 +15,8 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.delivery.common.config.Global;
 import com.delivery.common.constant.Constants;
-import com.delivery.common.enums.AssertType;
 import com.delivery.common.utils.StringUtils;
-import com.delivery.common.utils.uuid.IdUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

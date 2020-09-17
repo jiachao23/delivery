@@ -1718,38 +1718,6 @@ function connectPrinter() {
                 layer.msg("请使用USB连接打印机", {icon: 2, time: 7000});
                 return isConnectPrinter;
             },
-            printOne: function (res) {
-                console.log(res);
-                // let manager = res.manager;
-                // if (manager.search("@") != -1){
-                //     manager = manager.split("@")[1];
-                // }
-                let contentX = 35; // 标签内容开始位置
-                let number = res.number;
-                number = number.replace(/\b(0+)/gi, "")
-                let date = new Date(res.startTime);
-                wsocket.send('OpenPort|255');//打开端口
-                wsocket.send('ZM_ClearBuffer');//清空
-                wsocket.send('ZM_SetPrintSpeed|40');//设置速度
-                wsocket.send('ZM_SetDarkness|100');//设置黑度
-                wsocket.send('ZM_SetLabelHeight|' + height + '|16');//设置标签高度和间隙
-                wsocket.send('ZM_SetLabelWidth|' + width + '');//设置标签宽度
-                wsocket.send('ZM_DrawTextTrueTypeW|25|15|' + titleSize + '|0|Arial|1|800|0|0|0|A1|陕西省农村信用社联合社');//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|70|' + contentSize + '|0|Arial|1|600|0|0|0|A2|资产编号:' + number);//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|109|' + contentSize + '|0|Arial|1|600|0|0|0|A3|资产名称:' + res.name);//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|144|' + contentSize + '|0|Arial|1|600|0|0|0|A4|规格型号:' + res.type);//打印文字
-                // wsocket.send('ZM_DrawTextTrueTypeW|'+ contentX +'|179|'+ contentSize +'|0|Arial|1|600|0|0|0|A5|启用时间:' + [date.getFullYear(), date.getMonth(), date.getDate()].join("-") + '  领用人:' + res.ownerName);//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|179|' + contentSize + '|0|Arial|1|600|0|0|0|A5|启用时间:' + [date.getFullYear(), date.getMonth(), date.getDate()].join("-"));//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|214|' + contentSize + '|0|Arial|1|600|0|0|0|A6|领用人:' + res.ownerName);//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|249|' + contentSize + '|0|Arial|1|600|0|0|0|A7|存放地点:' + res.address);//打印文字
-                wsocket.send('ZM_DrawTextTrueTypeW|' + contentX + '|284|' + contentSize + '|0|Arial|1|600|0|0|0|A8|使用部门:' + res.department);//打印文字
-                // wsocket.send('ZM_DrawBarcode|50|280|0|1|3|3|90|66|' + res.number);//打印一维条码
-                wsocket.send('ZM_DrawBarcode|25|319|0|1A|2|2|70|78|' + res.number);//打印一维条码
-
-                // wsocket.send('ZM_DrawTextTrueTypeW|160|375|25|0|Arial|1|400|0|0|0|A8|' + number);//打印文字
-                wsocket.send('ZM_PrintLabel|1|1');//打印标签
-                wsocket.send('ClosePort');//关闭端口
-            }
         }
     });
 })(jQuery);

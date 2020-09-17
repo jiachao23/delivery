@@ -1,8 +1,5 @@
 package com.delivery.common.utils.uuid;
 
-import com.delivery.common.enums.AssertType;
-import com.delivery.common.utils.DateUtils;
-
 /**
  * ID生成器工具类
  *
@@ -46,67 +43,30 @@ public class IdUtils {
 	}
 
 	/**
-	 * 获取固定资产文件名
+	 * 生成随机的字符串文件名 随机6位字符串
 	 * @return /
 	 */
-	public static String getFixedFileName() {
-		return "cwgdzcsj_" + DateUtils.getDate().replaceAll("-", "") + ".txt";
-	}
+	public static String generateCharacter(int length) {
+		StringBuilder result = new StringBuilder();
 
-	/**
-	 * 获取固定资产文件名
-	 * @return /
-	 */
-	public static String getJsonFileName() {
-		return DateUtils.getDate().replaceAll("-", "") + ".json";
-	}
-
-	/**
-	 * 获取低值易耗品文件名
-	 * @return /
-	 */
-	public static String getConsumableFileName() {
-		return "cwdzyhpsj_" + DateUtils.getDate().replaceAll("-", "") + ".txt";
-	}
-
-	/**
-	 * 获取文件名
-	 * @param assertType AssertType
-	 * @return /
-	 */
-	public static String getFileName(AssertType assertType) {
-		if (assertType == AssertType.FIXED) {
-			return getFixedFileName();
+		for (int i = 0; i < length; i++) {
+			int intVal = (int) (Math.random() * 26 + 97);
+			result.append((char) intVal);
 		}
-		else if (assertType == AssertType.CONSUMABLE) {
-			return generatorConsumableFileName();
-		}
-		return null;
+		return result.toString();
 	}
 
 	/**
-	 * 生成固定资产文件名
+	 * 生成随机的字符串文件名 随机6位字符串
 	 * @return /
 	 */
-	public static String generatorFixedFileName() {
-		return "zggdzcsj_" + DateUtils.getDate().replaceAll("-", "") + ".txt";
-	}
+	public static String generateNumber(int length) {
+		StringBuilder result = new StringBuilder();
 
-	/**
-	 * 生成地址易耗品文件名
-	 * @return /
-	 */
-	public static String generatorConsumableFileName() {
-		return "zgdzyhpsj_" + DateUtils.getDate().replaceAll("-", "") + ".txt";
-	}
-
-	public static String generatorFileName(AssertType assertType) {
-		if (assertType == AssertType.FIXED) {
-			return generatorFixedFileName();
+		for (int i = 0; i < length; i++) {
+			int intVal = (int) (Math.random() * 10 + 48);
+			result.append((char) intVal);
 		}
-		else if (assertType == AssertType.CONSUMABLE) {
-			return generatorConsumableFileName();
-		}
-		return null;
+		return result.toString();
 	}
 }

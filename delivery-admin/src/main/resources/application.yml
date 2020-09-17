@@ -68,6 +68,14 @@ spring:
     restart:
       # 热部署开关
       enabled: true
+  mail:
+    port: 25
+    username: 317022800@qq.com
+    password: drzvgxssvocicbcd
+    #username: 1164355596@qq.com
+    #password: vejyslqccclbbace
+    host: smtp.qq.com
+    test-connection: true
 
 # MyBatis
 mybatis:
