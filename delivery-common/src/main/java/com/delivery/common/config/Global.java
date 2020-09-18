@@ -14,6 +14,10 @@ public class Global {
 	/** 项目名称 */
 	private static String name;
 
+	private static String domain;
+
+	private static String params;
+
 	/** 版本 */
 	private static String version;
 
@@ -28,6 +32,22 @@ public class Global {
 
 	/** 获取地址开关 */
 	private static boolean addressEnabled;
+
+	public static String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		Global.domain = domain;
+	}
+
+	public static String getParams() {
+		return params;
+	}
+
+	public void setParams(String params) {
+		Global.params = params;
+	}
 
 	public static String getName() {
 		return name;
@@ -103,5 +123,12 @@ public class Global {
 	 */
 	public static String getUploadPath() {
 		return getProfile() + "/upload";
+	}
+
+	/**
+	 * 获取上传路径
+	 */
+	public static String getFrontPrefix() {
+		return getDomain() + "/front?" + getParams() + "=";
 	}
 }

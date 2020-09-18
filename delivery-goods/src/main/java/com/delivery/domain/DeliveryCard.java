@@ -179,3 +179,5 @@ public class DeliveryCard extends BaseEntity {
 				.toString();
 	}
 }
+
+

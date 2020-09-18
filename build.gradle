@@ -24,7 +24,7 @@ ext {
 	set('swaggerVersion', "2.9.2")
 	set('swaggerModuleVersion', "1.5.21")
 	set('pagehelperBootVersion', "1.2.5")
-	set('zxingVersion','3.3.0')
+	set('zxingVersion', '3.3.0')
 	set('fastjsonVersion', "1.2.70")
 	set('oshiVersion', "3.9.1")
 	set('commonsIoVersion', "2.5")

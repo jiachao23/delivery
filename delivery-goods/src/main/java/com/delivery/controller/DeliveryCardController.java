@@ -1,21 +1,28 @@
 package com.delivery.controller;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import com.delivery.common.annotation.Log;
+import com.delivery.common.config.Global;
 import com.delivery.common.core.controller.BaseController;
 import com.delivery.common.core.domain.AjaxResult;
 import com.delivery.common.core.page.TableDataInfo;
+import com.delivery.common.core.text.Convert;
 import com.delivery.common.enums.BusinessType;
 import com.delivery.common.utils.poi.ExcelUtil;
+import com.delivery.common.utils.qr.QRCodeUtil;
 import com.delivery.common.utils.uuid.IdUtils;
 import com.delivery.domain.DeliveryCard;
 import com.delivery.dto.CardDto;
+import com.delivery.enums.CardStatus;
 import com.delivery.service.IDeliveryCardService;
-import com.delivery.system.domain.SysConfig;
 import com.delivery.system.utils.DictUtils;
+import com.google.zxing.WriterException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,19 +95,17 @@ public class DeliveryCardController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(@Valid CardDto cardDto) {
-
 		Integer number = cardDto.getNumber();
 		for (int i = 0; i < number; i++) {
 			DeliveryCard deliveryCard = new DeliveryCard();
 			String cardNo = IdUtils.generateNumber(12);
 			String password = IdUtils.generateNumber(6);
 			deliveryCard.setCardNo(cardNo);
-			deliveryCard.setCardStatus(DictUtils.getDictValue("card_status","待处理"));
+			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(), CardStatus.NOT_HANDLER.getLabel()));
 			deliveryCard.setCardPassword(password);
 			deliveryCard.setCardShop(cardDto.getName());
 			deliveryCardService.insertDeliveryCard(deliveryCard);
 		}
-
 		return toAjax(true);
 	}
 
@@ -137,4 +142,31 @@ public class DeliveryCardController extends BaseController {
 		return toAjax(deliveryCardService.deleteDeliveryCardByIds(ids));
 	}
 
+	@PostMapping("/print/{id}")
+	@ResponseBody
+	@RequiresPermissions("system:card:print")
+	public AjaxResult printLabel(@PathVariable("id") Long id) throws IOException, WriterException {
+		logger.info("printLabel | id = {}", id);
+		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(id);
+		String destImagePath = QRCodeUtil.encodeQrCode(Global.getFrontPrefix() + deliveryCard.getCardNo(), 500, 500, Global.getDownloadPath() + deliveryCard.getCardNo() + ".jpg");
+		deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
+		deliveryCardService.updateDeliveryCard(deliveryCard);
+		return AjaxResult.success(destImagePath);
+	}
+
+	@PostMapping("/printAll")
+	@ResponseBody
+	public AjaxResult printAllLabel(String ids) throws ParseException, IOException, WriterException {
+		logger.info("printAllLabel | ids = {}", ids);
+		Long[] cardIds = Convert.toLongArray(ids);
+		LinkedList<Object> messages = new LinkedList<>();
+		for (Long cardId : cardIds) {
+			DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(cardId);
+			String destImagePath = QRCodeUtil.encodeQrCode(Global.getFrontPrefix() + deliveryCard.getCardNo(), 500, 500, Global.getDownloadPath() + deliveryCard.getCardNo() + ".jpg");
+			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
+			deliveryCardService.updateDeliveryCard(deliveryCard);
+			messages.add(destImagePath);
+		}
+		return AjaxResult.success(messages);
+	}
 }

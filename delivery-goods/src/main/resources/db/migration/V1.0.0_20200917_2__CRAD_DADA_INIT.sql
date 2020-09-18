@@ -22,3 +22,5 @@ values('卡劵导出', 113, '5',  '#',  'F', '0', 'system:card:export',       '#
 insert into sys_menu (menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, create_time, update_by, update_time, remark)
 values('卡劵导入', 113, '6',  '#',  'F', '0', 'system:card:import',       '#', 'admin', '2020-08-20', 'admin', '2020-08-20', '');
 
+insert into sys_menu (menu_name, parent_id, order_num, url, menu_type, visible, perms, icon, create_by, create_time, update_by, update_time, remark)
+values('生成二维码', 113, '6', '#',  'F', '0', 'system:card:print', '#', 'admin', '2020-08-20', 'admin', '2020-08-20', '');

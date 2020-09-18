@@ -1235,30 +1235,22 @@ function connectPrinter() {
             },
             //打印标签
             printLabel: function (id) {
-                if (!isPrinterDriverOk) {
-                    layer.msg("连接打印机出错，请检查打印机驱动是否正常启动", {icon: 2, time: 10000});
-                    return;
-                }
-                if (!$.print.checkPrinterValid()) {
-                    return;
-                }
                 var url = "";
                 if ($.common.isNotEmpty(id)) {
                     url = table.options.printUrl.replace("{id}", id);
-
                 }
                 $.ajax({
                     url: url,
                     type: 'POST',
                     success: function (result) {
-                        if (result.code == web_status.SUCCESS) {
-                            if (wsocket.readyState == 1) {
-                                $.print.printOne(result.data);
-                            }
+                        if (result.code === web_status.SUCCESS) {
+                            // if (wsocket.readyState === 1) {
+                            //     // $.print.printOne(result.data);
+                            // }
                             $.modal.closeAll();
                             $.modal.alertSuccess(result.msg);
                             $.table.refresh();
-                        } else if (result.code == web_status.WARNING) {
+                        } else if (result.code === web_status.WARNING) {
                             layer.close(index);
                             $.modal.enable();
                             $.modal.alertWarning(result.msg)
@@ -1271,20 +1263,13 @@ function connectPrinter() {
                 });
             },
             printAll: function () {
-                if (!isPrinterDriverOk) {
-                    layer.msg("连接打印机出错，请检查打印机驱动是否正常启动", {icon: 2, time: 10000});
-                    return;
-                }
-                if (!$.print.checkPrinterValid()) {
-                    return;
-                }
                 table.set();
                 var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
-                if (rows.length == 0) {
+                if (rows.length === 0) {
                     $.modal.alertWarning("请至少选择一条记录");
                     return;
                 }
-                $.modal.confirm("确认要打印选中的" + rows.length + "条数据的标签吗?", function () {
+                $.modal.confirm("确认要生成选中的" + rows.length + "条数据的二维码吗?", function () {
                     var url = table.options.printAllUrl;
                     var data = {"ids": rows.join()};
 
@@ -1297,13 +1282,6 @@ function connectPrinter() {
                             $.modal.loading("正在处理中，请稍后...");
                         },
                         success: function (result) {
-                            if (typeof callback == "function") {
-                                callback(result);
-                            }
-                            for (var idx = 0; idx < result.data.length; idx++) {
-                                $.print.printOne(result.data[idx]);
-                            }
-
                             $.operate.ajaxSuccess(result);
                         }
                     };
@@ -1681,44 +1659,6 @@ function connectPrinter() {
                 return patten.test(text);
             },
         },
-        print: {
-            connect: function () {
-                if (wsocket == undefined) {
-                    if ('WebSocket' in window) {
-                        wsocket = new WebSocket(wsserver);
-                    } else if ('MozWebSocket' in window) {
-                        wsocket = new MozWebSocket(wsserver);
-                    } else {
-                        alert('不支持当前浏览器！');
-                    }
-                    wsocket.onopen = function () {
-                        //给打印机发送指令，获取打印机名称
-                        wsocket.send('ZM_GetPrinterName');
-                    }
-                    wsocket.onclose = function () {
-                        // layer.msg("关闭打印机连接");
-
-                    }
-                    wsocket.onerror = function () {
-                        isConnectPrinter = false;
-                        isPrinterDriverOk = false;
-                    }
-                    wsocket.onmessage = function (event) {
-                        let data = event.data;
-                        if (data == "No USB printer.") {
-                            isConnectPrinter = false;
-                        } else if (data.indexOf("ZMIN X16") != -1) {
-                            // layer.msg("打印机连接成功", {icon: 1, time: 7000});
-                            isConnectPrinter = true;
-                        }
-                    }
-                }
-            },
-            checkPrinterValid: function () {
-                layer.msg("请使用USB连接打印机", {icon: 2, time: 7000});
-                return isConnectPrinter;
-            },
-        }
     });
 })(jQuery);
 

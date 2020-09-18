@@ -4,6 +4,8 @@ delivery:
   name: delivery
   # 版本
   version: 1.0.0
+  params: t
+  domain: http://localhost
   # 版权年份
   copyrightYear: 2020
   # 文件路径 示例（ Windows配置D:/delivery/uploadPath，Linux配置 /home/delivery/uploadPath）
@@ -30,8 +32,8 @@ server:
 # 日志配置
 logging:
   level:
-    com.delivery: warn
-    org.springframework: warn
+    com.delivery: info
+    org.springframework: info
 
 # 用户配置
 user:

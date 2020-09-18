@@ -1,5 +1,7 @@
 package com.delivery.utils;
 
+import java.util.Objects;
+
 import com.delivery.domain.DeliveryCard;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,19 @@ public class MailUtils {
 		message.setFrom(mailProperties.getUsername());
 		message.setTo(mailProperties.getUsername());
 		message.setSubject("您有新的订单了，请及时处理");
-		message.setText(deliveryCard.toString());
+		message.setText(Objects.requireNonNull(createText(deliveryCard)));
 		//发送邮件
 		mailSender.send(message);
+	}
+
+	private String createText(DeliveryCard deliveryCard) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("商品编号：").append(deliveryCard.getCardNo()).append(System.getProperty("line.separator"))
+				.append("商品名：").append(deliveryCard.getCardShop()).append(System.getProperty("line.separator"))
+				.append("用户名：").append(deliveryCard.getUserName()).append(System.getProperty("line.separator"))
+				.append("用户电话：").append(deliveryCard.getPhone()).append(System.getProperty("line.separator"))
+				.append("用户地址：").append(deliveryCard.getAddress()).append(System.getProperty("line.separator"))
+				.append("备注：").append(deliveryCard.getRemark());
+		return sb.toString();
 	}
 }
