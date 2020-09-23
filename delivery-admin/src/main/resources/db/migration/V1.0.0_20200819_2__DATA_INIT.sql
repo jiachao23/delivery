@@ -154,9 +154,9 @@ insert into sys_dict_data values(26, 8,  '生成代码', '8',       'sys_oper_ty
 insert into sys_dict_data values(27, 9,  '清空数据', '9',       'sys_oper_type',       '',   'danger',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '清空操作');
 insert into sys_dict_data values(28, 1,  '成功',     '0',       'sys_common_status',   '',   'primary', 'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '正常状态');
 insert into sys_dict_data values(29, 2,  '失败',     '1',       'sys_common_status',   '',   'danger',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '停用状态');
-insert into sys_dict_data values(30, 1,  '待生成',     '1',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '待处理状态');
-insert into sys_dict_data values(31, 2,  '已生成',     '2',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已处理，未核销');
-insert into sys_dict_data values(32, 3,  '已核销',     '3',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已核销');
+insert into sys_dict_data values(30, 1,  '待生成',     '1',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '等待生成二维码');
+insert into sys_dict_data values(31, 2,  '已生成',     '2',       'card_status',   '',   'warning',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已经生成二维码，还未被消费');
+insert into sys_dict_data values(32, 3,  '已核销',     '3',       'card_status',   '',   'danger',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已消费');
 
 
 insert into sys_config values(1, '主框架页-默认皮肤样式名称',     'sys.index.skinName',       'skin-blue',     'Y', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
