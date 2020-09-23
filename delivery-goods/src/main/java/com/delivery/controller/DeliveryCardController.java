@@ -151,7 +151,7 @@ public class DeliveryCardController extends BaseController {
 		logger.info("printLabel | id = {}", id);
 		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(id);
 		List<DeliveryCard> list = Lists.newArrayList();
-		if(deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(),CardStatus.NOT_HANDLER.getLabel()))){
+		if(!deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(),CardStatus.WRITE_OFF.getLabel()))){
 			deliveryCard.setQrLink(Global.getFrontPrefix() + deliveryCard.getCardNo());
 			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
 			list.add(deliveryCard);
@@ -168,7 +168,7 @@ public class DeliveryCardController extends BaseController {
 		List<DeliveryCard> list = Lists.newArrayList();
 		for (Long cardId : cardIds) {
 			DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(cardId);
-			if(deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(),CardStatus.NOT_HANDLER.getLabel()))){
+			if(!deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(),CardStatus.WRITE_OFF.getLabel()))){
 				deliveryCard.setQrLink(Global.getFrontPrefix()+deliveryCard.getCardNo());
 				deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
 				deliveryCardService.updateDeliveryCard(deliveryCard);
