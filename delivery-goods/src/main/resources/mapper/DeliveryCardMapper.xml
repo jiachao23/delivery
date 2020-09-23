@@ -15,6 +15,7 @@
 		<result property="userName" column="user_name"/>
 		<result property="phone" column="phone"/>
 		<result property="address" column="address"/>
+		<result property="qrLink" column="qr_link"/>
 		<result property="remark" column="remark"/>
 		<result property="delFlag" column="del_flag"/>
 		<result property="createBy" column="create_by"/>
@@ -24,7 +25,7 @@
 	</resultMap>
 
 	<sql id="selectDeliveryCardVo">
-        select id, card_no, card_password, card_shop,start_time, end_time, card_status, user_name, phone, address,remark, del_flag, create_by, create_time, update_by, update_time from delivery_card
+        select id, card_no, card_password, card_shop,start_time, end_time, card_status, user_name, phone, address,qr_link,remark, del_flag, create_by, create_time, update_by, update_time from delivery_card
     </sql>
 
 	<select id="selectDeliveryCardList" parameterType="DeliveryCard"
@@ -57,6 +58,9 @@
 			</if>
 			<if test="address != null  and address != ''">and address =
 				#{address}
+			</if>
+			<if test="qrLink != null  and qrLink != ''">and qr_link =
+				#{qrLink}
 			</if>
 			<if test="remark != null  and remark != ''">and remark =
 				#{remark}
@@ -107,6 +111,9 @@
 			<if test="address != null">address
 				,
 			</if>
+			<if test="qrLink != null">qr_link
+				,
+			</if>
 			<if test="remark != null">remark
 				,
 			</if>
@@ -153,6 +160,9 @@
 			</if>
 			<if test="address != null">
 				#{address},
+			</if>
+			<if test="qrLink != null">
+				#{qrLink},
 			</if>
 			<if test="remark != null">
 				#{remark},
@@ -204,6 +214,9 @@
 			</if>
 			<if test="address != null">address
 				= #{address},
+			</if>
+			<if test="qrLink != null">qr_link
+				= #{qrLink},
 			</if>
 			<if test="remark != null">remark
 				= #{remark},

@@ -12,14 +12,14 @@ package com.delivery.enums;
 public enum CardStatus {
 
 	/**
-	 * 待处理
+	 * 待生成
 	 */
-	NOT_HANDLER("card_status", "待处理", ""),
+	NOT_HANDLER("card_status", "待生成", ""),
 
 	/**
-	 * 未核销
+	 * 已生成
 	 */
-	NOT_WRITE_OFF("card_status", "未核销", ""),
+	NOT_WRITE_OFF("card_status", "已生成", ""),
 
 	/**
 	 * 已核销

@@ -56,11 +56,11 @@ public class IndexController {
 		logger.info("checkPassword | deliveryCard = {}", deliveryCard.toString());
 		DeliveryCard card = deliveryCardService.selectDeliveryCardByCardNo(deliveryCard.getCardNo());
 		if (StringUtils.isNotNull(card)) {
-			if (!card.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(), CardStatus.NOT_HANDLER.getLabel()))) {
+			if (card.getCardStatus().equals(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(), CardStatus.WRITE_OFF.getLabel()))) {
 				return AjaxResult.error("此卡已被使用");
 			}
 			if (deliveryCard.getCardPassword().equals(card.getCardPassword())) {
-				AjaxResult.success(card);
+				return AjaxResult.success(card);
 			}
 			return AjaxResult.error();
 		}
@@ -85,14 +85,15 @@ public class IndexController {
 		deliveryCard.setRemark(indexDto.getRemark());
 		deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(), CardStatus.WRITE_OFF.getLabel()));
 		deliveryCardService.updateDeliveryCard(deliveryCard);
+		mailUtils.simpleMailSend(deliveryCard);
 		return "system/card/success";
 	}
 
-	@GetMapping("/send")
-	@ResponseBody
-	public String send() {
-		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(1L);
-		mailUtils.simpleMailSend(deliveryCard);
-		return "success";
-	}
+//	@GetMapping("/send")
+//	@ResponseBody
+//	public String send() {
+//		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(1L);
+//		mailUtils.simpleMailSend(deliveryCard);
+//		return "success";
+//	}
 }

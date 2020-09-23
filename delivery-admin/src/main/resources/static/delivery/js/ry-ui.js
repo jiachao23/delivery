@@ -1244,24 +1244,17 @@ function connectPrinter() {
                     type: 'POST',
                     success: function (result) {
                         if (result.code === web_status.SUCCESS) {
-                            // if (wsocket.readyState === 1) {
-                            //     // $.print.printOne(result.data);
-                            // }
-                            $.modal.closeAll();
-                            $.modal.alertSuccess(result.msg);
-                            $.table.refresh();
+                            window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
                         } else if (result.code === web_status.WARNING) {
-                            layer.close(index);
-                            $.modal.enable();
                             $.modal.alertWarning(result.msg)
                         } else {
-                            layer.close(index);
-                            $.modal.enable();
                             $.modal.alertError(result.msg);
                         }
+                        $.modal.closeLoading();
                     }
                 });
             },
+
             printAll: function () {
                 table.set();
                 var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
@@ -1282,7 +1275,14 @@ function connectPrinter() {
                             $.modal.loading("正在处理中，请稍后...");
                         },
                         success: function (result) {
-                            $.operate.ajaxSuccess(result);
+                            if (result.code === web_status.SUCCESS) {
+                                window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
+                            } else if (result.code === web_status.WARNING) {
+                                $.modal.alertWarning(result.msg)
+                            } else {
+                                $.modal.alertError(result.msg);
+                            }
+                            $.modal.closeLoading();
                         }
                     };
                     $.ajax(config)

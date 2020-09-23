@@ -4,8 +4,6 @@ import java.util.Date;
 
 import com.delivery.common.annotation.Excel;
 import com.delivery.common.core.domain.BaseEntity;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 卡劵对象 delivery_card
@@ -29,30 +27,27 @@ public class DeliveryCard extends BaseEntity {
 	private String cardPassword;
 
 	/** 开始时间 */
-	@Excel(name = "开始时间", width = 30, dateFormat = "yyyy-MM-dd")
 	private Date startTime;
 
 	/** 结束时间 */
-	@Excel(name = "结束时间", width = 30, dateFormat = "yyyy-MM-dd")
 	private Date endTime;
 
 	/** 卡状态 */
-	@Excel(name = "卡状态")
 	private String cardStatus;
 
 	/** 用户名 */
-	@Excel(name = "用户名")
 	private String userName;
 
 	/** 电话 */
-	@Excel(name = "电话")
 	private String phone;
 
 	/** 地址 */
-	@Excel(name = "地址")
 	private String address;
 
 	private String cardShop;
+
+	@Excel(name = "二维码链接")
+	private String qrLink;
 
 	private String remark;
 
@@ -157,26 +152,31 @@ public class DeliveryCard extends BaseEntity {
 		this.remark = remark;
 	}
 
+	public String getQrLink() {
+		return qrLink;
+	}
+
+	public void setQrLink(String qrLink) {
+		this.qrLink = qrLink;
+	}
+
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-				.append("id", getId())
-				.append("cardNo", getCardNo())
-				.append("cardPassword", getCardPassword())
-				.append("cardShop", getCardShop())
-				.append("startTime", getStartTime())
-				.append("endTime", getEndTime())
-				.append("cardStatus", getCardStatus())
-				.append("userName", getUserName())
-				.append("phone", getPhone())
-				.append("address", getAddress())
-				.append("remark", getRemark())
-				.append("delFlag", getDelFlag())
-				.append("createBy", getCreateBy())
-				.append("createTime", getCreateTime())
-				.append("updateBy", getUpdateBy())
-				.append("updateTime", getUpdateTime())
-				.toString();
+		return "DeliveryCard{" +
+				"id=" + id +
+				", cardNo='" + cardNo + '\'' +
+				", cardPassword='" + cardPassword + '\'' +
+				", startTime=" + startTime +
+				", endTime=" + endTime +
+				", cardStatus='" + cardStatus + '\'' +
+				", userName='" + userName + '\'' +
+				", phone='" + phone + '\'' +
+				", address='" + address + '\'' +
+				", cardShop='" + cardShop + '\'' +
+				", qrLink='" + qrLink + '\'' +
+				", remark='" + remark + '\'' +
+				", delFlag='" + delFlag + '\'' +
+				'}';
 	}
 }
 

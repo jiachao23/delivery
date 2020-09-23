@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.beust.jcommander.internal.Lists;
 import com.delivery.common.annotation.Log;
 import com.delivery.common.config.Global;
 import com.delivery.common.core.controller.BaseController;
@@ -146,12 +147,17 @@ public class DeliveryCardController extends BaseController {
 	@ResponseBody
 	@RequiresPermissions("system:card:print")
 	public AjaxResult printLabel(@PathVariable("id") Long id) throws IOException, WriterException {
+
 		logger.info("printLabel | id = {}", id);
 		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(id);
-		String destImagePath = QRCodeUtil.encodeQrCode(Global.getFrontPrefix() + deliveryCard.getCardNo(), 500, 500, Global.getDownloadPath() + deliveryCard.getCardNo() + ".jpg");
-		deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
-		deliveryCardService.updateDeliveryCard(deliveryCard);
-		return AjaxResult.success(destImagePath);
+		List<DeliveryCard> list = Lists.newArrayList();
+		if(deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(),CardStatus.NOT_HANDLER.getLabel()))){
+			deliveryCard.setQrLink(Global.getFrontPrefix() + deliveryCard.getCardNo());
+			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
+			list.add(deliveryCard);
+		}
+		ExcelUtil<DeliveryCard> util = new ExcelUtil<DeliveryCard>(DeliveryCard.class);
+		return util.exportExcel(list, "delivery");
 	}
 
 	@PostMapping("/printAll")
@@ -159,14 +165,17 @@ public class DeliveryCardController extends BaseController {
 	public AjaxResult printAllLabel(String ids) throws ParseException, IOException, WriterException {
 		logger.info("printAllLabel | ids = {}", ids);
 		Long[] cardIds = Convert.toLongArray(ids);
-		LinkedList<Object> messages = new LinkedList<>();
+		List<DeliveryCard> list = Lists.newArrayList();
 		for (Long cardId : cardIds) {
 			DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(cardId);
-			String destImagePath = QRCodeUtil.encodeQrCode(Global.getFrontPrefix() + deliveryCard.getCardNo(), 500, 500, Global.getDownloadPath() + deliveryCard.getCardNo() + ".jpg");
-			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
-			deliveryCardService.updateDeliveryCard(deliveryCard);
-			messages.add(destImagePath);
+			if(deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(),CardStatus.NOT_HANDLER.getLabel()))){
+				deliveryCard.setQrLink(Global.getFrontPrefix()+deliveryCard.getCardNo());
+				deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
+				deliveryCardService.updateDeliveryCard(deliveryCard);
+				list.add(deliveryCard);
+			}
 		}
-		return AjaxResult.success(messages);
+		ExcelUtil<DeliveryCard> util = new ExcelUtil<DeliveryCard>(DeliveryCard.class);
+		return util.exportExcel(list, "delivery");
 	}
 }

@@ -154,8 +154,8 @@ insert into sys_dict_data values(26, 8,  '生成代码', '8',       'sys_oper_ty
 insert into sys_dict_data values(27, 9,  '清空数据', '9',       'sys_oper_type',       '',   'danger',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '清空操作');
 insert into sys_dict_data values(28, 1,  '成功',     '0',       'sys_common_status',   '',   'primary', 'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '正常状态');
 insert into sys_dict_data values(29, 2,  '失败',     '1',       'sys_common_status',   '',   'danger',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '停用状态');
-insert into sys_dict_data values(30, 1,  '待处理',     '1',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '待处理状态');
-insert into sys_dict_data values(31, 2,  '未核销',     '2',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已处理，未核销');
+insert into sys_dict_data values(30, 1,  '待生成',     '1',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '待处理状态');
+insert into sys_dict_data values(31, 2,  '已生成',     '2',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已处理，未核销');
 insert into sys_dict_data values(32, 3,  '已核销',     '3',       'card_status',   '',   'primary',  'N', '0', 'admin', '2020-08-20 11-33-00', 'admin', '2020-08-20 11-33-00', '已核销');
 
 
