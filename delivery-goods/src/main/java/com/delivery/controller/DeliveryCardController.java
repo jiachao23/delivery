@@ -96,6 +96,7 @@ public class DeliveryCardController extends BaseController {
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(@Valid CardDto cardDto) {
+		logger.info("generator card | cardDto = {}",cardDto);
 		Integer number = cardDto.getNumber();
 		for (int i = 0; i < number; i++) {
 			DeliveryCard deliveryCard = new DeliveryCard();
