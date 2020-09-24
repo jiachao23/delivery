@@ -20,10 +20,10 @@
 			  value="%black(%contextName-) ${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
 	<!-- 日志文件地址 -->
-	<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-/logs}}"/>
+	<property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-/home/delivery/logs}}"/>
 
 	<!-- 日志文件前缀 -->
-	<property name="LOG_PREFIX" value="jcohy"/>
+	<property name="LOG_PREFIX" value="delivery"/>
 
 	<!-- 控制台输出 -->
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
