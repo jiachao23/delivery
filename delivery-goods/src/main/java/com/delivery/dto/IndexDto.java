@@ -18,6 +18,8 @@ public class IndexDto implements Serializable {
 	@NotEmpty(message = "不能为空")
 	private String cardNo;
 
+	private String cardShop;
+
 	private String userName;
 
 	private String cardPassword;
@@ -33,6 +35,14 @@ public class IndexDto implements Serializable {
 	private String city;
 
 	private String area;
+
+	public String getCardShop() {
+		return cardShop;
+	}
+
+	public void setCardShop(String cardShop) {
+		this.cardShop = cardShop;
+	}
 
 	public String getCardNo() {
 		return cardNo;
@@ -110,6 +120,7 @@ public class IndexDto implements Serializable {
 	public String toString() {
 		return "IndexDto{" +
 				"cardNo='" + cardNo + '\'' +
+				", cardShop='" + cardShop + '\'' +
 				", userName='" + userName + '\'' +
 				", cardPassword='" + cardPassword + '\'' +
 				", address='" + address + '\'' +

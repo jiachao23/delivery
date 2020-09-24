@@ -1,6 +1,6 @@
 /**
  * 基于bootstrapTreeTable/bootstrap-table-treegrid修改
- * Copyright (c) 2020 fais
+ * Copyright (c) 2020 delivery
  */
 (function ($) {
     "use strict";

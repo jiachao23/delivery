@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.beust.jcommander.internal.Lists;
 import com.delivery.common.annotation.Log;
@@ -44,7 +45,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/system/card")
 public class DeliveryCardController extends BaseController {
-	private String prefix = "/system/card";
+	private String prefix = "system/card";
 
 	@Autowired
 	private IDeliveryCardService deliveryCardService;
@@ -95,9 +96,9 @@ public class DeliveryCardController extends BaseController {
 	@Log(title = "卡劵", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(@Valid CardDto cardDto) {
-		logger.info("generator card | cardDto = {}",cardDto);
-		Integer number = cardDto.getNumber();
+	public AjaxResult addSave(@NotNull Integer number) {
+		logger.info("generator card | number = {}",number);
+//		Integer number = cardDto.getNumber();
 		for (int i = 0; i < number; i++) {
 			DeliveryCard deliveryCard = new DeliveryCard();
 			String cardNo = IdUtils.generateNumber(12);
@@ -105,7 +106,7 @@ public class DeliveryCardController extends BaseController {
 			deliveryCard.setCardNo(cardNo);
 			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(), CardStatus.NOT_HANDLER.getLabel()));
 			deliveryCard.setCardPassword(password);
-			deliveryCard.setCardShop(cardDto.getName());
+//			deliveryCard.setCardShop(cardDto.getName());
 			deliveryCardService.insertDeliveryCard(deliveryCard);
 		}
 		return toAjax(true);

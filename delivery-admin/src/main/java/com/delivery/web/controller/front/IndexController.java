@@ -32,7 +32,7 @@ public class IndexController {
 
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-	private String prefix = "/front";
+	private String prefix = "front";
 
 	@Autowired
 	private IDeliveryCardService deliveryCardService;
@@ -76,6 +76,7 @@ public class IndexController {
 		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardByCardNo(indexDto.getCardNo());
 		deliveryCard.setUserName(indexDto.getUserName());
 		deliveryCard.setPhone(indexDto.getPhone());
+		deliveryCard.setCardShop(indexDto.getCardShop());
 		StringBuilder sb = new StringBuilder();
 		sb.append(indexDto.getProvince())
 				.append(indexDto.getCity())

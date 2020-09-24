@@ -32,6 +32,7 @@ public class Global {
 
 	/** 获取地址开关 */
 	private static boolean addressEnabled;
+	private static String email;
 
 	public static String getDomain() {
 		return domain;
@@ -43,6 +44,14 @@ public class Global {
 
 	public static String getParams() {
 		return params;
+	}
+
+	public static String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		Global.email = email;
 	}
 
 	public void setParams(String params) {

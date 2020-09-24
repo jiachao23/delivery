@@ -5,7 +5,7 @@ CREATE TABLE `delivery_card`  (
   `id`           bigint      NOT NULL auto_increment    comment '主键',
   `card_no` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '卡编号',
   `card_password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL  COMMENT '卡密码',
-  `card_shop` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL  COMMENT '卡对应的商品',
+  `card_shop` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL  COMMENT '卡对应的商品',
   `start_time` 	    datetime                                   comment '开始时间',
   `end_time` 	    datetime                                   comment '结束时间',
   `card_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '卡状态',

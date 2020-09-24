@@ -2,6 +2,7 @@ package com.delivery.utils;
 
 import java.util.Objects;
 
+import com.delivery.common.config.Global;
 import com.delivery.domain.DeliveryCard;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class MailUtils {
 		//创建邮件内容
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom(mailProperties.getUsername());
-		message.setTo(mailProperties.getUsername());
+		message.setTo(Global.getEmail());
 		message.setSubject("您有新的订单了，请及时处理");
 		message.setText(Objects.requireNonNull(createText(deliveryCard)));
 		//发送邮件
