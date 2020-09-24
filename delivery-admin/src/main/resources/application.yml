@@ -10,7 +10,7 @@ delivery:
   copyrightYear: 2020
   # 文件路径 示例（ Windows配置D:/delivery/uploadPath，Linux配置 /home/delivery/uploadPath）
   profile: /home/delivery/uploadPath
-  email: jia_chao23@126.com
+  email: 1164355596@qq.com
   demoEnabled: false
   # 获取ip地址开关
   addressEnabled: true

@@ -106,6 +106,7 @@ public class DeliveryCardController extends BaseController {
 			deliveryCard.setCardNo(cardNo);
 			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_HANDLER.getKey(), CardStatus.NOT_HANDLER.getLabel()));
 			deliveryCard.setCardPassword(password);
+			deliveryCard.setQrLink(Global.getFrontPrefix() + deliveryCard.getCardNo());
 //			deliveryCard.setCardShop(cardDto.getName());
 			deliveryCardService.insertDeliveryCard(deliveryCard);
 		}
@@ -154,8 +155,8 @@ public class DeliveryCardController extends BaseController {
 		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(id);
 		List<DeliveryCard> list = Lists.newArrayList();
 		if(!deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(),CardStatus.WRITE_OFF.getLabel()))){
-			deliveryCard.setQrLink(Global.getFrontPrefix() + deliveryCard.getCardNo());
 			deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
+			deliveryCardService.updateDeliveryCard(deliveryCard);
 			list.add(deliveryCard);
 		}
 		ExcelUtil<DeliveryCard> util = new ExcelUtil<DeliveryCard>(DeliveryCard.class);
@@ -171,7 +172,6 @@ public class DeliveryCardController extends BaseController {
 		for (Long cardId : cardIds) {
 			DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(cardId);
 			if(!deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.WRITE_OFF.getKey(),CardStatus.WRITE_OFF.getLabel()))){
-				deliveryCard.setQrLink(Global.getFrontPrefix()+deliveryCard.getCardNo());
 				deliveryCard.setCardStatus(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()));
 				deliveryCardService.updateDeliveryCard(deliveryCard);
 				list.add(deliveryCard);

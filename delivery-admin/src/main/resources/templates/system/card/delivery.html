@@ -111,16 +111,12 @@
                     title: '卡密码'
                 },
                 {
+                    field: 'qrLink',
+                    title: '二维码链接'
+                },
+                {
                     field: 'cardShop',
                     title: '商品信息'
-                },
-                {
-                    field: 'startTime',
-                    title: '开始时间'
-                },
-                {
-                    field: 'endTime',
-                    title: '结束时间'
                 },
                 {
                     field: 'cardStatus',
@@ -128,6 +124,16 @@
                     formatter: function (value, row, index) {
                         return $.table.selectDictLabel(cardStatusDatas, value);
                     }
+                },
+                {
+                    field: 'startTime',
+                    title: '开始时间',
+                    visible: false
+                },
+                {
+                    field: 'endTime',
+                    title: '结束时间',
+                    visible: false
                 },
                 {
                     field: 'userName',

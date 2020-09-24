@@ -1245,6 +1245,7 @@ function connectPrinter() {
                     success: function (result) {
                         if (result.code === web_status.SUCCESS) {
                             window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
+                            $.table.refresh();
                         } else if (result.code === web_status.WARNING) {
                             $.modal.alertWarning(result.msg)
                         } else {
@@ -1276,6 +1277,7 @@ function connectPrinter() {
                         },
                         success: function (result) {
                             if (result.code === web_status.SUCCESS) {
+                                $.table.refresh();
                                 window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
                             } else if (result.code === web_status.WARNING) {
                                 $.modal.alertWarning(result.msg)
