@@ -74,6 +74,7 @@ public class IndexController {
 	public String saveUser(@Valid IndexDto indexDto) {
 		logger.info("saveUser | IndexDto = {}", indexDto.toString());
 		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardByCardNo(indexDto.getCardNo());
+		logger.info("deliveryCard message = {} ",deliveryCard);
 		// 卡劵已生成并且未被核销
 		if(!deliveryCard.getCardStatus().equals(DictUtils.getDictValue(CardStatus.NOT_WRITE_OFF.getKey(), CardStatus.NOT_WRITE_OFF.getLabel()))){
 			return "system/card/fail";

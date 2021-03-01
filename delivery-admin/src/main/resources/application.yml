@@ -7,7 +7,7 @@ delivery:
   params: t
   domain: http://azhenf.jcohy.com
   # 版权年份
-  copyrightYear: 2020
+  copyrightYear: 2021
   # 文件路径 示例（ Windows配置D:/delivery/uploadPath，Linux配置 /home/delivery/uploadPath）
   profile: /home/delivery/uploadPath
   email: 1164355596@qq.com
@@ -35,7 +35,7 @@ logging:
   level:
     com.delivery: info
     org.springframework: info
-
+  config: classpath:logback.xml
 # 用户配置
 user:
   password:
@@ -66,17 +66,12 @@ spring:
       max-file-size:  10MB
       # 设置总上传的文件大小
       max-request-size:  20MB
-  # 服务模块
-  devtools:
-    restart:
-      # 热部署开关
-      enabled: true
   mail:
     port: 465
-    username: 317022800@qq.com
-    password: drzvgxssvocicbcd
-    #username: 1164355596@qq.com
-    #password: vejyslqccclbbace
+    #username: 317022800@qq.com
+    #password: drzvgxssvocicbcd
+    username: 1164355596@qq.com
+    password: lwrxfqibofwuhafd
     host: smtp.qq.com
     test-connection: true
     properties:
