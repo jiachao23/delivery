@@ -95,11 +95,11 @@ public class IndexController {
 		return "system/card/success";
 	}
 
-//	@GetMapping("/send")
-//	@ResponseBody
-//	public String send() {
-//		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(1L);
-//		mailUtils.simpleMailSend(deliveryCard);
-//		return "success";
-//	}
+	@GetMapping("/send")
+	@ResponseBody
+	public String send() {
+		DeliveryCard deliveryCard = deliveryCardService.selectDeliveryCardById(7L);
+		mailUtils.simpleMailSend(deliveryCard);
+		return "success";
+	}
 }
