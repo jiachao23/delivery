@@ -152,7 +152,7 @@ deploy() {
   tar -zxvf V1.0.2
   cd delivery-1.0.2 && chmod +x gradlew && ./gradlew clean build
   cd /root/delivery-1.0.2/delivery-admin/build/libs
-  java -jar delivery-admin-1.0.2.jar
+  nohup java -jar delivery-admin-1.0.2.jar>delivery.logs 2>&1 &
 }
 
 #根据输入参数，选择执行对应方法，不输入则执行使用说明
