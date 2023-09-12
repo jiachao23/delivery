@@ -1,0 +1,83 @@
+= 部署文档
+
+== 要求
+
+* 一台服务器
+
+== 环境安装
+
+* https://study.jcohy.com/html5/linux.html#linux-install-jdk[安装 JDK]
+* https://study.jcohy.com/html5/linux.html#linux-install-mysql[安装 Mysql]
+
+数据库密码默认为 jcohy1203, 需要和项目中配置的一致。如需修改密码，可参考文件进行修改，然后在修改项目的配置文件。
+
+== 编译打包
+
+解压项目代码，进入目录中，打开 cmd，执行 `chmod +x gradlew && ./gradlew clean build`。构建后的 jar 包位于项目根目录/delivery-admin/build/libs.
+
+将 jar 包拷贝出来
+
+[source,shell]
+----
+cp delivery-admin-1.0.2.jar ~
+cd ~
+nohup java -jar delivery-admin-1.0.2.jar >delivery.logs 2>&1 &
+----
+
+
+== 修改配置
+
+如果需要更换邮箱密码等其他系统配置，需要修改配置文件，配置文件位于项目根目录/delivery-admin/src/main/resources/application.yml
+
+[source,YAML]
+----
+# 项目相关配置
+delivery:
+  # 名称
+  name: delivery
+  # 版本
+  version: 1.0.0
+  params: t
+  domain: http://azhenf.jcohy.com
+  # 版权年份
+  copyrightYear: 2021
+  # 文件路径 示例（ Windows配置D:/delivery/uploadPath，Linux配置 /home/delivery/uploadPath）
+  profile: /home/delivery/uploadPath
+  email: 1164355596@qq.com
+  demoEnabled: false
+  # 获取ip地址开关
+  addressEnabled: true
+
+# Spring配置
+spring:
+  mail:
+    port: 465
+    #username: 317022800@qq.com
+    #password: drzvgxssvocicbcd
+    username: 1164355596@qq.com
+    password: lwrxfqibofwuhafd
+    host: smtp.qq.com
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+              port: 465
+              class: javax.net.ssl.SSLSocketFactory
+              fallback: false
+          starttls:
+              enable: true
+              required: true
+----
+
+== 脚本构件
+
+将 `deploy.sh` 脚本上传到 linux 服务器。注意，上传到根目录。
+
+然后执行以下操作
+
+[source,shell]
+----
+chmod +x deploy.sh && ./deploy.sh start
+----
