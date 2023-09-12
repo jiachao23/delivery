@@ -71,7 +71,7 @@ spring:
               required: true
 ----
 
-== 脚本构件
+== 脚本构建
 
 将 `deploy.sh` 脚本上传到 linux 服务器。注意，上传到根目录。
 
@@ -81,3 +81,21 @@ spring:
 ----
 chmod +x deploy.sh && ./deploy.sh start
 ----
+
+[[NOTE]]
+====
+在脚本本，默认从 github 中克隆代码进行构建，是固定死得，如果修改了项目配置，需要对脚本进行相应的更改。
+
+[source,shell]
+----
+deploy() {
+  # 如果存在本地项目，则不需要进行下载，直接进入项目目录。可以将下面这两行注释掉
+  #wget -N https://codeload.github.com/jiachao23/delivery/tar.gz/refs/tags/V1.0.2
+  #tar -zxvf V1.0.2
+  cd delivery-1.0.2 && chmod +x gradlew && ./gradlew clean build
+  cd /root/delivery-1.0.2/delivery-admin/build/libs
+  nohup java -jar delivery-admin-1.0.2.jar>delivery.logs 2>&1 &
+}
+----
+====
+
